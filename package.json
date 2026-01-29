@@ -1,0 +1,22 @@
+{
+  "name": "create-react-ts",
+  "version": "1.0.0",
+  "description": "A Vite template for React with TypeScript and strict linting",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "create-react-ts": "./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "react",
+    "vite",
+    "typescript",
+    "template",
+    "linting"
+  ],
+  "author": "",
+  "license": "ISC"
+}

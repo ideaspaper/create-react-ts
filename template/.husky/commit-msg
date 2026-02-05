@@ -1,1 +1,7 @@
-npx --no -- commitlint --edit "${1}"
+if [ -f pnpm-lock.yaml ]; then
+  pnpm exec commitlint --edit "${1}"
+elif [ -f yarn.lock ]; then
+  yarn commitlint --edit "${1}"
+else
+  npx --no -- commitlint --edit "${1}"
+fi

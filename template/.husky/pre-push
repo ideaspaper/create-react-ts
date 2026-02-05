@@ -1,1 +1,7 @@
-npm run test
+if [ -f pnpm-lock.yaml ]; then
+  pnpm run test
+elif [ -f yarn.lock ]; then
+  yarn run test
+else
+  npm run test
+fi

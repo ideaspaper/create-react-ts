@@ -7,7 +7,7 @@ import importPlugin from 'eslint-plugin-import-x';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
-  {ignores: ['dist', 'coverage']},
+  { ignores: ['dist', 'coverage'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -24,7 +24,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        {allowConstantExport: true},
+        { allowConstantExport: true },
       ],
       'import-x/order': [
         'error',

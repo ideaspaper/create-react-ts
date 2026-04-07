@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import App from './App';
 
@@ -18,7 +18,7 @@ describe('App', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', {level: 2, name: /common commands/i}),
+      screen.getByRole('heading', { level: 2, name: /common commands/i }),
     ).toBeInTheDocument();
     expect(screen.getByText('npm run dev')).toBeInTheDocument();
     expect(screen.getByText('npm run test')).toBeInTheDocument();

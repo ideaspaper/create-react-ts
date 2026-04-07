@@ -2,6 +2,8 @@
 
 This template gives you a clean React 19 + TypeScript 6 + Vite 8 baseline with a few practical defaults already in place.
 
+Before running the scripts below for the first time, install dependencies with `npm install`.
+
 ## Included tooling
 
 - ESLint 9 with TypeScript support, React Hooks rules, import ordering, and Prettier integration
@@ -16,6 +18,7 @@ npm run dev
 npm run build
 npm run typecheck
 npm run lint
+npm run lint:fix
 npm run test
 npm run test:coverage
 npm run check

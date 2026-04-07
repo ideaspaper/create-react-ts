@@ -6,7 +6,11 @@ const scripts = [
     command: 'npm run dev',
     description: 'Start the Vite dev server.',
   },
-  {name: 'test', command: 'npm run test', description: 'Run the Vitest suite.'},
+  {
+    name: 'test',
+    command: 'npm run test',
+    description: 'Run the Vitest suite.',
+  },
   {
     name: 'check',
     command: 'npm run check',

@@ -1,6 +1,7 @@
 :root {
   font-family: 'Sora', 'Avenir Next', 'Segoe UI', sans-serif;
-  --display-font: 'Space Grotesk', 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+  --display-font:
+    'Space Grotesk', 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
   --page-background: #f6efe4;
   --page-overlay: rgba(255, 255, 255, 0.45);
   --panel-background: rgba(255, 251, 245, 0.88);
@@ -28,8 +29,16 @@ body {
   min-height: 100vh;
   color: var(--text-color);
   background:
-    radial-gradient(circle at top left, rgba(248, 113, 113, 0.2), transparent 28%),
-    radial-gradient(circle at right 20%, rgba(14, 165, 233, 0.16), transparent 24%),
+    radial-gradient(
+      circle at top left,
+      rgba(248, 113, 113, 0.2),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at right 20%,
+      rgba(14, 165, 233, 0.16),
+      transparent 24%
+    ),
     linear-gradient(180deg, var(--page-overlay), rgba(255, 255, 255, 0)),
     var(--page-background);
 }

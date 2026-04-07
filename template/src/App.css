@@ -27,7 +27,11 @@
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0));
+  background: radial-gradient(
+    circle,
+    rgba(15, 118, 110, 0.16),
+    rgba(15, 118, 110, 0)
+  );
   pointer-events: none;
 }
 

@@ -15,10 +15,11 @@ const scripts = [
 ];
 
 const foundations = [
-  'React 19 with TypeScript and Vite 7',
-  'ESLint, Prettier, and import ordering',
-  'Vitest, Testing Library, and jsdom',
-  'Husky, lint-staged, and commitlint',
+  `React 19 + Vite 8 + TypeScript 6`,
+  `ESLint 9 with TypeScript, React Hooks, import ordering, and Prettier integration`,
+  `Vitest 4 + Testing Library + jsdom 29`,
+  `Husky, lint-staged, and commitlint`,
+  `Path alias support via @/`,
 ];
 
 function App() {

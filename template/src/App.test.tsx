@@ -1,16 +1,36 @@
 import {render, screen} from '@testing-library/react';
 
-// describe and test are available globally via vitest/globals
 import App from './App';
 
 describe('App', () => {
-  test('should work as expected', async () => {
+  test('renders the starter template headline', () => {
     render(<App />);
 
-    const buttonElement = screen.getByText(
-      /Click on the Vite and React logos to learn more/i,
-    );
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: /start with a template that is already opinionated/i,
+      }),
+    ).toBeInTheDocument();
+  });
 
-    expect(buttonElement).toBeInTheDocument();
+  test('lists the key project commands', () => {
+    render(<App />);
+
+    expect(
+      screen.getByRole('heading', {level: 2, name: /common commands/i}),
+    ).toBeInTheDocument();
+    expect(screen.getByText('npm run dev')).toBeInTheDocument();
+    expect(screen.getByText('npm run test')).toBeInTheDocument();
+    expect(screen.getAllByText('npm run check')).toHaveLength(2);
+  });
+
+  test('shows the built-in tooling summary', () => {
+    render(<App />);
+
+    expect(screen.getByText(/eslint, prettier, and import ordering/i));
+    expect(
+      screen.getByText(/husky, lint-staged, and commitlint/i),
+    ).toBeInTheDocument();
   });
 });

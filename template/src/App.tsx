@@ -1,35 +1,98 @@
-import {useState} from 'react';
-
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+const scripts = [
+  {
+    name: 'dev',
+    command: 'npm run dev',
+    description: 'Start the Vite dev server.',
+  },
+  {name: 'test', command: 'npm run test', description: 'Run the Vitest suite.'},
+  {
+    name: 'check',
+    command: 'npm run check',
+    description: 'Run linting, tests, and production build in one pass.',
+  },
+];
 
+const foundations = [
+  'React 19 with TypeScript and Vite 7',
+  'ESLint, Prettier, and import ordering',
+  'Vitest, Testing Library, and jsdom',
+  'Husky, lint-staged, and commitlint',
+];
+
+function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <main className="app-shell">
+      <section className="hero">
+        <p className="eyebrow">React + TypeScript starter</p>
+        <h1>
+          Start with a template that is already opinionated in the useful
+          places.
+        </h1>
+        <p className="hero-copy">
+          This project ships with a modern toolchain, lightweight starter UI,
+          and a validation path you can trust before the first feature lands.
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+        <div className="hero-actions">
+          <a
+            className="primary-link"
+            href="https://react.dev"
+            target="_blank"
+            rel="noreferrer"
+          >
+            React docs
+          </a>
+          <a
+            className="secondary-link"
+            href="https://vite.dev"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Vite docs
+          </a>
+        </div>
+      </section>
+
+      <section className="panel-grid" aria-label="Template details">
+        <article className="panel">
+          <h2>Included by default</h2>
+          <ul className="feature-list">
+            {foundations.map(item => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="panel">
+          <h2>Common commands</h2>
+          <ul className="command-list">
+            {scripts.map(script => (
+              <li key={script.name}>
+                <code>{script.command}</code>
+                <p>{script.description}</p>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <section className="roadmap">
+        <div>
+          <p className="roadmap-label">Recommended first edits</p>
+          <ol>
+            <li>Replace this screen with your product entry point.</li>
+            <li>
+              Update page metadata in <code>index.html</code>.
+            </li>
+            <li>
+              Add features behind tests and keep <code>npm run check</code>{' '}
+              green.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
   );
 }
 

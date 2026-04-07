@@ -8,7 +8,8 @@
     "create-react-ts": "./index.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "template"
   ],
   "keywords": [
     "react",

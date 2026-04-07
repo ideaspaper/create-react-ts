@@ -1,36 +1,26 @@
-import * as path from 'path';
+import {fileURLToPath, URL} from 'node:url';
 
 import react from '@vitejs/plugin-react';
-import {defineConfig as defineViteConfig, mergeConfig} from 'vite';
-import {defineConfig as defineVitestConfig} from 'vitest/config';
+import {defineConfig} from 'vitest/config';
 
-const viteConfig = defineViteConfig({
-  plugins: [
-    react(),
-    {
-      name: 'remove-react-devtools',
-      transformIndexHtml(html) {
-        if (process.env.NODE_ENV === 'production') {
-          return html.replace(
-            /<script src="http:\/\/localhost:8097"><\/script>/,
-            '',
-          );
-        }
-        return html;
-      },
-    },
-  ],
+export default defineConfig({
+  plugins: [react()],
   resolve: {
-    alias: [{find: '@', replacement: path.resolve(__dirname, 'src')}],
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
-});
-
-const vitestConfig = defineVitestConfig({
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './test-setup.ts',
+    coverage: {
+      exclude: [
+        'src/**/*.css',
+        'src/assets/**',
+        'src/main.tsx',
+        'test-setup.ts',
+      ],
+    },
   },
 });
-
-export default mergeConfig(viteConfig, vitestConfig);

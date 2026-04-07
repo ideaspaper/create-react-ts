@@ -2,7 +2,7 @@
 
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
 const projectName = process.argv[2];
 
@@ -13,99 +13,103 @@ if (!projectName) {
 }
 
 const currentDir = process.cwd();
-const projectDir = path.join(currentDir, projectName);
+const projectDir = path.resolve(currentDir, projectName);
+const templateDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "template");
+
+const packageManagerUserAgent = process.env.npm_config_user_agent ?? "";
+
+const detectPackageManager = () => {
+  if (packageManagerUserAgent.startsWith("pnpm")) {
+    return "pnpm";
+  }
+
+  if (packageManagerUserAgent.startsWith("yarn")) {
+    return "yarn";
+  }
+
+  return "npm";
+};
+
+const normalizePackageName = value =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/^[._]+/, "")
+    .replace(/[^a-z0-9._-]+/g, "-")
+    .replace(/-+/g, "-");
 
 if (fs.existsSync(projectDir)) {
   console.error(`The directory ${projectName} already exists.`);
   process.exit(1);
 }
 
-const TEMPLATE_REPO = "https://github.com/ideaspaper/create-react-ts.git";
-
 console.log(`Creating a new React app in ${projectDir}.`);
 
 try {
-  console.log(`Cloning template from ${TEMPLATE_REPO}...`);
-  execSync(`git clone --depth 1 ${TEMPLATE_REPO} ${projectDir}`, {
-    stdio: "inherit",
-  });
+  if (!fs.existsSync(templateDir)) {
+    throw new Error("Template files are missing from this package.");
+  }
+
+  fs.mkdirSync(projectDir, { recursive: true });
+  fs.cpSync(templateDir, projectDir, { recursive: true });
 } catch (error) {
-  console.error("Failed to clone the template repository.");
+  fs.rmSync(projectDir, { recursive: true, force: true });
+  console.error(
+    error instanceof Error
+      ? `Failed to create the project: ${error.message}`
+      : "Failed to create the project.",
+  );
   process.exit(1);
 }
 
-process.chdir(projectDir);
-
-const templateSubDir = path.join(projectDir, "template");
-if (fs.existsSync(templateSubDir)) {
-  const moveRecursive = (src, dest) => {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-    for (let entry of entries) {
-      const srcPath = path.join(src, entry.name);
-      const destPath = path.join(dest, entry.name);
-      if (entry.isDirectory()) {
-        if (!fs.existsSync(destPath)) {
-          fs.mkdirSync(destPath);
-        }
-        moveRecursive(srcPath, destPath);
-      } else {
-        if (entry.name === "_gitignore") {
-          fs.renameSync(srcPath, path.join(dest, ".gitignore"));
-        } else {
-          fs.renameSync(srcPath, destPath);
-        }
-      }
-    }
-  };
-
-  console.log("Setting up template structure...");
-  moveRecursive(templateSubDir, projectDir);
-
-  fs.rmSync(templateSubDir, { recursive: true, force: true });
+const gitignorePath = path.join(projectDir, "_gitignore");
+if (fs.existsSync(gitignorePath)) {
+  fs.renameSync(gitignorePath, path.join(projectDir, ".gitignore"));
 }
-
-fs.rmSync(path.join(projectDir, ".git"), { recursive: true, force: true });
-
-const cleanupFiles = [
-  "index.js",
-  "package-lock.json",
-  "README.md",
-  ".gitignore",
-];
-cleanupFiles.forEach((file) => {
-  if (file === "index.js") {
-    const filePath = path.join(projectDir, file);
-    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-  }
-});
 
 const packageJsonPath = path.join(projectDir, "package.json");
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+const normalizedProjectName = normalizePackageName(path.basename(projectDir));
 
-packageJson.name = projectName;
+packageJson.name = normalizedProjectName || "my-app";
 packageJson.version = "0.0.0";
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+const packageManager = detectPackageManager();
+const installCommand = packageManager === "yarn" ? "yarn" : `${packageManager} install`;
+const devCommand = packageManager === "yarn" ? "yarn dev" : `${packageManager} run dev`;
+const buildCommand = packageManager === "yarn" ? "yarn build" : `${packageManager} run build`;
+const testCommand = packageManager === "yarn" ? "yarn test" : `${packageManager} run test`;
+const lintCommand = packageManager === "yarn" ? "yarn lint" : `${packageManager} run lint`;
+const checkCommand = packageManager === "yarn" ? "yarn check" : `${packageManager} run check`;
+
+if (normalizedProjectName !== path.basename(projectDir)) {
+  console.log(`Using npm package name \"${normalizedProjectName}\".`);
+}
 
 console.log(`
 Success! Created ${projectName} at ${projectDir}
 Inside that directory, you can run several commands:
 
-  npm run dev
+  ${devCommand}
     Starts the development server.
 
-  npm run build
+  ${buildCommand}
     Bundles the app into static files for production.
 
-  npm run test
-    Starts the test runner.
+  ${testCommand}
+    Runs the test suite.
 
-  npm run lint
+  ${lintCommand}
     Lints the code.
+
+  ${checkCommand}
+    Runs lint, tests, and build together.
 
 We suggest that you begin by typing:
 
   cd ${projectName}
-  npm install
-  npm run dev
+  ${installCommand}
+  ${devCommand}
 `);

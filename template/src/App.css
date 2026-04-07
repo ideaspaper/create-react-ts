@@ -1,42 +1,195 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app-shell {
+  display: grid;
+  gap: 2rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.hero,
+.panel,
+.roadmap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  background: var(--panel-background);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.hero {
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.hero::after,
+.panel::after,
+.roadmap::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -55% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0));
+  pointer-events: none;
+}
+
+.eyebrow,
+.roadmap-label {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.hero h1,
+.panel h2 {
+  margin: 0;
+  font-family: var(--display-font);
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  line-height: 0.94;
+}
+
+.hero-copy {
+  max-width: 60ch;
+  margin: 1.25rem 0 0;
+  font-size: 1.05rem;
+  color: var(--muted-text);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.primary-link,
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10rem;
+  padding: 0.9rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.primary-link {
+  background: var(--accent-color);
+  color: #f8fafc;
+}
+
+.secondary-link {
+  border-color: var(--border-color);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.primary-link:hover,
+.secondary-link:hover {
+  transform: translateY(-1px);
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.panel,
+.roadmap {
+  padding: 1.75rem;
+}
+
+.panel h2 {
+  font-size: 1.35rem;
+}
+
+.feature-list,
+.command-list,
+.roadmap ol {
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.feature-list,
+.command-list {
+  list-style: none;
+}
+
+.feature-list li,
+.command-list li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.feature-list li + li,
+.command-list li + li,
+.roadmap li + li {
+  margin-top: 1rem;
+}
+
+.feature-list li::before,
+.command-list li::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--accent-color);
+}
+
+.command-list code {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  font-size: 0.92rem;
+}
+
+.command-list p {
+  margin: 0.45rem 0 0;
+  color: var(--muted-text);
+}
+
+.roadmap {
+  padding-top: 1.5rem;
+}
+
+.roadmap ol {
+  padding-left: 1.15rem;
+  color: var(--muted-text);
+}
+
+@media (max-width: 860px) {
+  .panel-grid {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .panel,
+  .roadmap {
+    border-radius: 22px;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .hero-actions {
+    flex-direction: column;
   }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .primary-link,
+  .secondary-link {
+    width: 100%;
+  }
 }

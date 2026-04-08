@@ -74,7 +74,7 @@ const normalizedProjectName = normalizePackageName(path.basename(projectDir));
 packageJson.name = normalizedProjectName || "my-app";
 packageJson.version = "0.0.0";
 
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
 
 const packageManager = detectPackageManager();
 const installCommand = packageManager === "yarn" ? "yarn" : `${packageManager} install`;

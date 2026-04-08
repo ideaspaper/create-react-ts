@@ -28,7 +28,11 @@ describe('App', () => {
   test('shows the built-in tooling summary', () => {
     render(<App />);
 
-    expect(screen.getByText(/eslint, prettier, and import ordering/i));
+    expect(
+      screen.getByText(
+        /eslint 9 with typescript, react hooks, import ordering, and prettier integration/i,
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.getByText(/husky, lint-staged, and commitlint/i),
     ).toBeInTheDocument();

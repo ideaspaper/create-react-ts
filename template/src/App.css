@@ -52,8 +52,8 @@
 }
 
 .hero h1 {
-  max-width: 12ch;
-  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  max-width: 13ch;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
   line-height: 0.94;
 }
 
@@ -62,44 +62,6 @@
   margin: 1.25rem 0 0;
   font-size: 1.05rem;
   color: var(--muted-text);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 2rem;
-}
-
-.primary-link,
-.secondary-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 10rem;
-  padding: 0.9rem 1.3rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-weight: 700;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease;
-}
-
-.primary-link {
-  background: var(--accent-color);
-  color: #f8fafc;
-}
-
-.secondary-link {
-  border-color: var(--border-color);
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.primary-link:hover,
-.secondary-link:hover {
-  transform: translateY(-1px);
 }
 
 .panel-grid {
@@ -186,14 +148,5 @@
   .panel,
   .roadmap {
     border-radius: 22px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .primary-link,
-  .secondary-link {
-    width: 100%;
   }
 }

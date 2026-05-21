@@ -1,7 +1,7 @@
 {
   "name": "create-react-ts",
-  "version": "1.0.0",
-  "description": "A Vite template for React with TypeScript and strict linting",
+  "version": "2.0.0",
+  "description": "Scaffold a configurable React + TypeScript + Vite starter with modern defaults",
   "main": "index.js",
   "type": "module",
   "bin": {
@@ -11,12 +11,16 @@
     "index.js",
     "template"
   ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "keywords": [
+    "create",
     "react",
-    "vite",
-    "typescript",
+    "scaffold",
     "template",
-    "linting"
+    "typescript",
+    "vite"
   ],
   "author": "",
   "license": "ISC"

@@ -1,6 +1,22 @@
 # create-react-ts
 
-Scaffold a React + TypeScript + Vite app with ESLint, Prettier, Vitest, Husky, and commitlint already wired in.
+Scaffold a modern React + TypeScript + Vite app with configurable extras instead of one fixed setup.
+
+## What the base starter includes
+
+- React 19 + Vite 8 + TypeScript 6
+- ESLint flat config with TypeScript, React Hooks, React Refresh, and import sorting
+- Prettier as a separate formatter
+- Vitest + Testing Library + jsdom
+- `@/` imports via Vite's native tsconfig path support
+
+## Presets
+
+- `minimal` — core toolchain only
+- `standard` — core toolchain + coverage support
+- `team` — coverage + `simple-git-hooks` + `commitlint` + Playwright
+
+Default preset: `standard`
 
 ## Usage
 
@@ -8,25 +24,45 @@ Scaffold a React + TypeScript + Vite app with ESLint, Prettier, Vitest, Husky, a
 npx github:ideaspaper/create-react-ts my-app
 ```
 
-The CLI copies the bundled `template/` directory into your new project and then updates the generated package name.
+### Common examples
 
-If you are working directly inside the bundled `template/` folder in this repository, run `npm install` there before using any npm scripts. The checked-in template does not include `node_modules`.
+```bash
+# Lean starter
+npx github:ideaspaper/create-react-ts my-app --preset minimal
 
-## What you get
+# Default starter with pnpm-flavoured docs
+npx github:ideaspaper/create-react-ts my-app --pm pnpm
 
-- React 19 + Vite 8 + TypeScript 6
-- ESLint 9 with TypeScript, React Hooks, import ordering, and Prettier integration
-- Vitest 4 + Testing Library + jsdom 29
-- Husky, lint-staged, and commitlint
-- Path alias support via `@/`
+# Team-oriented setup, then install immediately
+npx github:ideaspaper/create-react-ts my-app --preset team --pm pnpm --install
 
-## Generated app commands
+# Pick features manually
+npx github:ideaspaper/create-react-ts my-app \
+  --hooks husky \
+  --commitlint \
+  --coverage \
+  --vitest-ui \
+  --e2e playwright
+```
 
-- `npm run dev` starts the dev server
-- `npm run build` creates a production build
-- `npm run typecheck` runs TypeScript project references
-- `npm run lint` checks lint rules
-- `npm run lint:fix` fixes autofixable lint issues
-- `npm run test` runs the test suite
-- `npm run test:coverage` runs tests with coverage
-- `npm run check` runs lint, tests, and build together
+## CLI options
+
+- `--preset <minimal|standard|team>`
+- `--pm <npm|pnpm|yarn>`
+- `--hooks <none|simple-git-hooks|husky>`
+- `--commitlint` / `--no-commitlint`
+- `--coverage` / `--no-coverage`
+- `--vitest-ui` / `--no-vitest-ui`
+- `--e2e <none|playwright>`
+- `--playwright` shortcut for `--e2e playwright`
+- `--install` install dependencies after scaffolding
+- `--git` / `--no-git` initialize a git repository
+- `-h, --help`
+- `-v, --version`
+
+## Notes
+
+- No lockfile is bundled in the template.
+- Git is initialized automatically when hooks are enabled.
+- The generated app README is customized to the selected package manager and enabled features.
+- If you enable Playwright, run the generated `test:e2e:install` script once to download browsers.

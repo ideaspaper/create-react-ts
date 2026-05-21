@@ -1,19 +1,35 @@
 import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
-import prettierRecommended from 'eslint-plugin-prettier/recommended';
+
+const vitestGlobals = {
+  afterAll: 'readonly',
+  afterEach: 'readonly',
+  beforeAll: 'readonly',
+  beforeEach: 'readonly',
+  describe: 'readonly',
+  expect: 'readonly',
+  test: 'readonly',
+  vi: 'readonly',
+};
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    ignores: ['coverage', 'dist', 'playwright-report', 'test-results'],
+  },
+  {
     files: ['**/*.{ts,tsx}'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 'latest',
+      globals: {
+        ...globals.browser,
+        ...vitestGlobals,
+      },
     },
     plugins: {
       'react-hooks': reactHooks,
@@ -30,7 +46,7 @@ export default tseslint.config(
         'error',
         {
           groups: [
-            ['^react$', '^react-dom', '^react-router$', '^@?\\w'],
+            ['^react$', '^react-dom', '^@?\\w'],
             ['^@/'],
             ['^\\u0000'],
             ['^\\.'],
@@ -40,5 +56,13 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
     },
   },
-  prettierRecommended,
+  {
+    files: ['vite.config.ts', 'playwright.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  eslintConfigPrettier,
 );

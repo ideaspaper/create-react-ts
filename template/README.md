@@ -1,37 +1,35 @@
 # React + TypeScript Starter
 
-This template gives you a clean React 19 + TypeScript 6 + Vite 8 baseline with a few practical defaults already in place.
-
-Before running the scripts below for the first time, install dependencies with `npm install`.
+This is the standard `create-react-ts` baseline: React + TypeScript + Vite with linting, formatting, and testing already in place.
 
 ## Included tooling
 
-- ESLint 9 with TypeScript support, React Hooks rules, import ordering, and Prettier integration
-- Vitest 4 + Testing Library + jsdom 29
-- Husky, lint-staged, and commitlint
-- `@/` import alias for `src/`
+- React 19 + Vite 8 + TypeScript 6
+- ESLint flat config with TypeScript, React Hooks, React Refresh, and import sorting
+- Prettier as a separate formatter
+- Vitest + Testing Library + jsdom
+- V8 coverage support
+- `@/` imports via Vite's native tsconfig path support
 
 ## Scripts
 
 ```bash
+npm install
 npm run dev
 npm run build
 npm run typecheck
 npm run lint
 npm run lint:fix
+npm run format
+npm run format:check
 npm run test
 npm run test:coverage
+npm run test:watch
 npm run check
 ```
 
 ## Suggested first steps
 
-1. Update `src/App.tsx` with your product content.
-2. Replace the metadata in `index.html`.
-3. Add your first feature under `src/` and keep `npm run check` green.
-
-## Notes
-
-- The starter UI is intentionally lightweight and ready to replace.
-- The test setup already includes `@testing-library/jest-dom` matchers.
-- If you want stricter linting later, move the ESLint config to a type-aware ruleset.
+1. Replace `src/App.tsx` with your product entry point.
+2. Update the metadata in `index.html`.
+3. Add your first feature and keep `npm run check` green.
